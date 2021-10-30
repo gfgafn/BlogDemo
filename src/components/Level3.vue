@@ -1,13 +1,15 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-21 12:57:51
- * @LastEditTime: 2021-10-23 20:39:23
+ * @LastEditTime: 2021-10-24 22:44:49
  * @LastEditors: Please set LastEditors
- * @Description: Dian团队Web前端新人培训任务Level3，一个三子棋小游戏     
+ * @Description: Dian团队Web前端新人培训任务Level3，一个井字棋小游戏     
  * @FilePath: \diantrain\src\components\Level3.vue
 -->
 <template>
-  <Board />
+  <div class="game">
+    <Board />
+  </div>
 </template>
 
 <script>
@@ -98,16 +100,17 @@ export default {
 </script>
 
 <style>
-body {
-  font: 14px "Century Gothic", Futura, sans-serif;
-  margin: 20px;
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
 }
 
 ol,
 ul {
   padding-left: 30px;
 }
-
 .board-row:after {
   clear: both;
   content: "";
@@ -115,6 +118,7 @@ ul {
 }
 
 .status {
+  /* margin-left: 100px; */
   margin-bottom: 10px;
 }
 
@@ -135,10 +139,5 @@ ul {
 
 .square:focus {
   outline: none;
-}
-
-.game {
-  display: flex;
-  flex-direction: row;
 }
 </style>

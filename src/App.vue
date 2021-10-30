@@ -1,20 +1,20 @@
 <template>
-  <GameLevel3 />
+  <Header />
+  <a-layout>
+    <Sider />
+    <Content />
+  </a-layout>
+  <a-back-top />
 </template>
-
 <script>
-import GameLevel3 from "./components/Level3.vue";
+import Header from "./components/Header.vue";
+import Sider from "./components/Sider.vue";
+import Content from "./components/Content.vue";
+
 export default {
+  components: { Header, Sider, Content },
   name: "App",
-  components: {
-    GameLevel3,
-  },
 };
 </script>
-
 <style>
-#app {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
 </style>
