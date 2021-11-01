@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-29 18:30:29
- * @LastEditTime: 2021-10-30 03:11:15
+ * @LastEditTime: 2021-11-01 22:26:26
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \diantrain\src\components\Header.vue
@@ -30,12 +30,16 @@
       <a-menu-item key="4">
         <Login />
       </a-menu-item>
+      <a-menu-item key="4">
+        <Register />
+      </a-menu-item>
     </a-menu>
   </a-layout-header>
 </template>
 <script>
 import Login from './Login.vue'
-export default {components: { Login },};
+import Register from './Register.vue'
+export default {components: { Login, Register },};
 </script>
 <style lang="">
 </style>
