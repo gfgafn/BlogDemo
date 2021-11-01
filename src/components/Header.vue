@@ -27,11 +27,15 @@
       <a-menu-item key="3">
         <router-link to="/about">关于我</router-link>
       </a-menu-item>
+      <a-menu-item key="4">
+        <Login />
+      </a-menu-item>
     </a-menu>
   </a-layout-header>
 </template>
 <script>
-export default {};
+import Login from './Login.vue'
+export default {components: { Login },};
 </script>
 <style lang="">
 </style>

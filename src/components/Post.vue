@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-29 18:55:59
- * @LastEditTime: 2021-10-30 18:58:25
+ * @LastEditTime: 2021-10-31 02:42:56
  * @LastEditors: Please set LastEditors
  * @Description: Post component
  * @FilePath: \diantrain\src\components\Posts.vue
