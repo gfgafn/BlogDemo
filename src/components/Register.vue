@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-01 22:21:45
- * @LastEditTime: 2021-11-01 23:08:03
+ * @LastEditTime: 2021-11-04 13:27:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \diantrain\src\components\Register.vue
@@ -29,12 +29,17 @@
             </a-input>
           </a-form-item>
           <a-form-item>
+            <a-input v-model:value="formState.email" placeholder="example@example.com">
+              <template #prefix><MailOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
+            </a-input>
+          </a-form-item>
+          <a-form-item>
             <a-input-password v-model:value="formState.password" type="password" placeholder="Password">
               <template #prefix><LockOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
             </a-input-password>
           </a-form-item>
           <a-form-item>
-            <a-input-password v-model:value="formState.passwordSec" type="password" placeholder="Input Password Secondly">
+            <a-input-password v-model:value="formState.passwordSec" type="password" placeholder="Password">
               <template #prefix><LockOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
             </a-input-password>
           </a-form-item>
@@ -54,11 +59,15 @@
 </template>
 <script>
 import { ref, defineComponent, reactive } from "vue";
-import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
+import {
+  UserOutlined,
+  LockOutlined,
+  MailOutlined,
+} from "@ant-design/icons-vue";
 import { message } from "ant-design-vue";
-import * as HTTP from "../http/api";
+import * as API from "../http/api";
 export default defineComponent({
-  components: { UserOutlined, LockOutlined },
+  components: { UserOutlined, LockOutlined, MailOutlined },
   setup() {
     // 注册弹窗是否可见
     const visible = ref(false);
@@ -70,36 +79,48 @@ export default defineComponent({
     // reactive声明响应式数据，用于声明引用数据类型
     const formState = reactive({
       user: "",
+      email: "",
       password: "",
       passwordSec: "",
     });
 
-    const handleFinish = async (values) => {
-      const isAllowed = VerifyPwd();
+    const handleFinish = async () => {
+      const isAllowed = registerIf(formState);
       if (isAllowed) {
-        console.log(values, formState, isAllowed);
-        const { code } = await HTTP.register(isAllowed);
-        if (code === 200) {
+        const formData = {
+          name: formState.user,
+          email: formState.email,
+          password: formState.password,
+        };
+        console.log(formData);
+        const { code } = await API.register(formData);
+        if (code === "200") {
           message.success("注册成功");
-          visible.value = false;
+        } else if (code === "403") {
+          message.error("重复注册");
         } else {
-          message.error("登陆失败");
+          message.error("注册失败");
         }
-      } else {
-        message.error("密码不一致");
       }
     };
-    
+
     /**
-     * @description: 验证前后两次输入的密码是否一致
+     * @description: 检验是否具有注册资质，即验证邮箱格式和检验前后两次输入的密码是否一致
      * @param {formState} 注册表单中的数据
      * @return {true | false} 是否允许注册
      */
-    const VerifyPwd = (formState) => {
-      const { password, passwordSec } = formState;
-      if (password === passwordSec) {
-        return true;
+    const registerIf = (formState) => {
+      const { email, password, passwordSec } = formState;
+      let reg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+      if (reg.test(email)) {
+        if (password === passwordSec) {
+          return true;
+        } else {
+          message.error("密码不一致");
+          return false;
+        }
       } else {
+        message.error("邮箱格式错误");
         return false;
       }
     };
@@ -113,7 +134,7 @@ export default defineComponent({
       // 注册表单数据
       formState,
       handleFinish,
-      VerifyPwd,
+      registerIf,
       handleFinishFailed,
     };
   },
