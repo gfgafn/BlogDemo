@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-29 18:30:29
- * @LastEditTime: 2021-11-01 22:26:26
+ * @LastEditTime: 2021-11-04 15:50:26
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \diantrain\src\components\Header.vue
@@ -30,7 +30,7 @@
       <a-menu-item key="4">
         <Login />
       </a-menu-item>
-      <a-menu-item key="4">
+      <a-menu-item key="5">
         <Register />
       </a-menu-item>
     </a-menu>
