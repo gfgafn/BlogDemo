@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-29 18:55:59
- * @LastEditTime: 2021-10-31 02:42:56
+ * @LastEditTime: 2021-11-02 12:26:25
  * @LastEditors: Please set LastEditors
  * @Description: Post component
  * @FilePath: \diantrain\src\components\Posts.vue
@@ -12,9 +12,8 @@
       <li class="postTitle">标题</li>
       <li class="postAttribute">
         <p>
-        <CalendarOutlined /><span>2021/10/29</span>
+        <CalendarOutlined /><span>{{datetime.format('YYYY/MM/DD')}}</span>
         <UserOutlined /><span>author</span>
-        <CommentOutlined /><span>comment</span>
         <EyeOutlined /><span>浏览量</span>
         </p>
       </li>
@@ -35,19 +34,32 @@
         />
       </li>
       <li class="interaction">
-        
         <LikeOutlined /><span>赞同</span>
-        <CommentOutlined /><span>评论</span>
+        <CommentOutlined @click="comment" /><span @click="comment">评论</span> 
         <ShareAltOutlined /><span>分享</span>
         <span class="fold"><UpOutlined /><span>收起</span></span>
-        
       </li>
     </ul>
   </div>
+  <comment v-if="commentShowState" ></comment>
 </template>
 <script>
 import { defineComponent, ref } from "vue";
+import dayjs from "dayjs";
+import Comment from "./Comment.vue";
 export default defineComponent({
+  components: { Comment },
+  data() {
+    return {
+      datetime: dayjs(),
+      commentShowState: false,
+    };
+  },
+  methods: {
+    comment() {
+      this.commentShowState = !this.commentShowState;
+    },
+  },
   setup() {
     return {
       ellipsis: ref(true),
@@ -111,13 +123,11 @@ export default defineComponent({
   color: #a6adb4;
   background-color: #001529;
 }
-.readButton:hover {
-  color: #fff;
-  background-color: #1890ff;
-}
+/* 底部交互，点赞、评论、分享 */
 .interaction span:nth-child(2n) {
   font-weight: 500;
   padding: 0 8% 0 0.5%;
+  cursor: pointer;
 }
 .interaction .fold {
   float: right;
