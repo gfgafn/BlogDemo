@@ -8,27 +8,37 @@
 -->
 <template>
   <div>
-    <Post />
-    ......................................................
-    <br />
-    Really
-    <br />...<br />...<br />...<br />
-    long
-    <br />...<br />...<br />...<br />...<br />...<br />...
-    <br />...<br />...<br />...<br />...<br />...<br />...
-    <br />...<br />...<br />...<br />...<br />...<br />...
-    <br />...<br />...<br />...<br />...<br />...<br />...
-    <br />...<br />...<br />...<br />...<br />...<br />...
-    <br />...<br />...<br />...<br />...<br />...<br />...
-    <br />...<br />...<br />...<br />...<br />...<br />
-    content
+    <template v-for="postData in posts" :key="postData.record">
+      <Post :post="postData" />
+    </template>
   </div>
 </template>
 <script>
+import { message } from "ant-design-vue";
 import Post from "../components/Post.vue";
+import * as API from "../http/api";
 export default {
   components: {
     Post,
+  },
+  data() {
+    return {
+      posts: [],
+    };
+  },
+  created() {
+    let LocalStorageData = JSON.parse(localStorage.getItem("data"));
+    if (LocalStorageData) {
+      API.getPosts().then((res) => {
+        if (res.code === "500") {
+          message.error("登录状态过期，请重新登录");
+        } else {
+          this.posts = res.data;
+        }
+      });
+    } else {
+      message.error("请先登录");
+    }
   },
 };
 </script>

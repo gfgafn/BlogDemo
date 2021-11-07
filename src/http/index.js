@@ -18,7 +18,18 @@ const $http = axios.create({
 
 // 请求拦截
 $http.interceptors.request.use((config) => {
-  console.log("Axios-http中的config", config);
+  let data = JSON.parse(localStorage.getItem("data"));
+  switch (config.url) {
+    case "/select":
+      config.headers = {
+        'Content-Type': 'application/json', 
+        Authorization: data.token,
+      };
+      config.data = 'aNoSenseString';
+      break;
+    default:
+      break;
+  }
   return config;
 });
 

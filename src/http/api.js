@@ -10,3 +10,4 @@ import $http from "./index";
 
 export const register = (data) => $http.post("/sign_up", data);
 export const login = (data) => $http.post("/log_in", data);
+export const getPosts = () => $http.post("/select");
