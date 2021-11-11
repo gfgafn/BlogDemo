@@ -22,10 +22,10 @@ $http.interceptors.request.use((config) => {
   switch (config.url) {
     case "/select":
       config.headers = {
-        'Content-Type': 'application/json', 
+        "Content-Type": "application/json",
         Authorization: data.token,
       };
-      config.data = 'aNoSenseString';
+      config.data = "A_NO_SENSESTRING";
       break;
     default:
       break;

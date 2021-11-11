@@ -30,6 +30,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../components/Level3.vue"),
   },
+  {
+    path: "/write",
+    name: "WritePost",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/WritePost.vue"),
+  },
 ];
 
 const router = createRouter({

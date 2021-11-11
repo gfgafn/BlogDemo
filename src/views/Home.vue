@@ -23,7 +23,33 @@ export default {
   },
   data() {
     return {
-      posts: [],
+      posts: [
+        {
+          record: 2,
+          userId: 9,
+          title: "Ant Design",
+          content: [
+            {
+              type: "header1",
+              children: [{ text: "Ant Design of Vue" }],
+            },
+            {
+              type: "paragraph",
+              children: [
+                {
+                  text: "Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team. ",
+                },
+              ],
+            },
+          ],
+          time: {
+            releaseTime: "2021/11/6",
+            lastEditedTime: "2021/11/6",
+          },
+          likes: 1,
+          views: 2,
+        },
+      ],
     };
   },
   created() {

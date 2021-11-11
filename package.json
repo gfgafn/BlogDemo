@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.0.1",
+    "@wangeditor/editor": "^0.10.3",
+    "@wangeditor/editor-for-vue": "^5.1.5-5",
     "ant-design-vue": "^2.2.8",
     "axios": "^0.24.0",
     "dayjs": "^1.10.7",

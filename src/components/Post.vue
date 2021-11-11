@@ -22,7 +22,7 @@
         <a-typography-paragraph
         :style="{color:'#fff', margin:'0'}"
         :ellipsis="ellipsis ? { rows: 2, expandable: true, symbol: '阅读全文' } : false"
-        :content="post.content"
+        :content="this.postContentText"
         />
       </li>
       <li class="interaction">
@@ -39,6 +39,7 @@
 import { defineComponent, ref } from "vue";
 import dayjs from "dayjs";
 import Comment from "./Comment.vue";
+import { createEditor } from "@wangeditor/editor";
 export default defineComponent({
   components: { Comment },
   props: { post: Object },
@@ -46,6 +47,8 @@ export default defineComponent({
     return {
       datetime: dayjs(),
       commentShowState: false,
+      postContentHtml: "",
+      postContentText: "",
     };
   },
   methods: {
@@ -57,6 +60,15 @@ export default defineComponent({
     return {
       ellipsis: ref(true),
     };
+  },
+  created() {
+    const postContent = this.post.content;
+    const editorGetPostContent = createEditor({ content: postContent });
+    this.postContentHtml = editorGetPostContent.getHtml();
+    this.postContentText = editorGetPostContent.getText();
+    const postContentHeader = this.post.content[0];
+    const editorGetPostContentHeader = createEditor({ content: postContentHeader });
+    this.postContentHeaderText = editorGetPostContentHeader.getText();
   },
 });
 </script>

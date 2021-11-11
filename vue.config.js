@@ -30,7 +30,7 @@ module.exports = {
           // If you are using less-loader@5 please spread the lessOptions to options directly
           modifyVars: {
             // 'layout-sider-background': '#6593A6',
-            "layout-header-background": '#58595B',
+            "layout-header-background": "#58595B",
           },
           javascriptEnabled: true,
         },
@@ -46,10 +46,22 @@ module.exports = {
         // '/api'是代理标识，用于告诉node，url前面是/api的就是使用代理的
         target: "http://39.108.117.28:8080", //目标地址，一般是指后台服务器地址
         changeOrigin: true, //是否跨域
-        pathRewrite: { // pathRewrite 的作用是把实际Request Url中的'/api'用""代替
-            '^/api': "/api"
-        }
+        pathRewrite: {
+          // pathRewrite 的作用是把实际Request Url中的'/api'用""代替
+          "^/api": "/api",
+        },
       },
+    },
+  },
+  configureWebpack: {
+    module: {
+      rules: [
+        {
+          test: /\.mjs$/,
+          include: /node_modules/,
+          type: "javascript/auto",
+        },
+      ],
     },
   },
 };
