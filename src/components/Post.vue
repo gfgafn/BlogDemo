@@ -12,7 +12,7 @@
       <li class="postTitle">{{post.title}}</li>
       <li class="postAttribute">
         <p>
-        <CalendarOutlined /><span>{{post.time.releaseTime}}</span>
+        <CalendarOutlined /><span>{{post.releaseTime}}</span>
         <!-- <UserOutlined /><span>author</span> -->
         <EyeOutlined /><span>{{post.views}}</span>
         </p>
@@ -62,11 +62,11 @@ export default defineComponent({
     };
   },
   created() {
-    const postContent = this.post.content;
+    const postContent = JSON.parse(this.post.content);
     const editorGetPostContent = createEditor({ content: postContent });
     this.postContentHtml = editorGetPostContent.getHtml();
     this.postContentText = editorGetPostContent.getText();
-    const postContentHeader = this.post.content[0];
+    const postContentHeader = postContent[0];
     const editorGetPostContentHeader = createEditor({ content: postContentHeader });
     this.postContentHeaderText = editorGetPostContentHeader.getText();
   },
