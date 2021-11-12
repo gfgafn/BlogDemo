@@ -36,6 +36,14 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/WritePost.vue"),
   },
+  {
+    path: "/editPost",
+    name: "editPost",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/EditPost.vue"),
+    // props: { postID: 0, post: {} },
+    props: route => ({ query: route.query })
+  },
 ];
 
 const router = createRouter({

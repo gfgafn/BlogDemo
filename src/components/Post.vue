@@ -27,9 +27,10 @@
       </li>
       <li class="interaction">
         <LikeOutlined /><span>{{post.likes}}赞同</span>
-        <CommentOutlined @click="comment" /><span @click="comment">评论</span> 
+        <EditOutlined /><span @click="editPost" >编辑</span>
+        <!-- <CommentOutlined @click="comment" /><span @click="comment">评论</span>  -->
         <!-- <ShareAltOutlined /><span>分享</span> -->
-        <DeleteOutlined @click="delPost"/><span @click="delPost">删除</span>
+        <DeleteOutlined @click="delPost" /><span @click="delPost">删除</span>
         <span class="fold"><UpOutlined /><span>收起</span></span>
       </li>
     </ul>
@@ -55,6 +56,14 @@ export default defineComponent({
   methods: {
     comment() {
       this.commentShowState = !this.commentShowState;
+    },
+    editPost() {
+      const postTitleAndContent = {
+        title: this.post.title,
+        content: this.post.content
+      }
+      this.$router.push({ path: "/editPost", query: { post: JSON.stringify(postTitleAndContent) } });
+      console.log();
     },
     delPost() {
       const postNode = document.getElementById(this.post.record);
