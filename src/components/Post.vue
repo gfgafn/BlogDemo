@@ -75,6 +75,7 @@ export default defineComponent({
 <style scoped>
 .post {
   margin: 0 auto;
+  margin-bottom: 20px;
   color: #a6adb4;
   background-color: #303841;
 }

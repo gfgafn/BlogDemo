@@ -27,6 +27,12 @@ $http.interceptors.request.use((config) => {
       };
       config.data = "A_NO_SENSESTRING";
       break;
+    case "/write":
+      config.headers = {
+        "Content-Type": "application/json",
+        Authorization: data.token,
+      };
+      break;
     default:
       break;
   }

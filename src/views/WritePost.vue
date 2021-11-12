@@ -35,7 +35,7 @@
 <script>
 import { computed, onUnmounted } from "vue";
 import "@wangeditor/editor/dist/css/style.css"; // 也可以在 <style> 中 import
-
+import * as API from "../http/api";
 import {
   Editor,
   Toolbar,
@@ -112,7 +112,7 @@ export default {
 
       // 返回值（注意，vue 事件的返回值，不能用 return）
       // callback(false); // 返回 false ，阻止默认粘贴行为
-      callback(true) // 返回 true ，继续默认的粘贴行为
+      callback(true); // 返回 true ，继续默认的粘贴行为
     };
 
     // 及时销毁编辑器
@@ -156,6 +156,14 @@ export default {
           content: this.postContent,
         };
         console.log(postData);
+        API.writePost(postData).then((res) => {
+          console.log("fyugfuy", res.code);
+          if (res.code === "200") {
+            message.success("提交成功");
+          } else {
+            message.error("提交失败");
+          }
+        });
       } else {
         message.error("请先登录");
       }
