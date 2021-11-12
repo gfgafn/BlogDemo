@@ -7,7 +7,7 @@
  * @FilePath: \diantrain\src\components\Posts.vue
 -->
 <template lang="">
-  <div class="post">
+  <div class="post" :id="post.record">
     <ul>
       <li class="postTitle">{{post.title}}</li>
       <li class="postAttribute">
@@ -28,7 +28,8 @@
       <li class="interaction">
         <LikeOutlined /><span>{{post.likes}}赞同</span>
         <CommentOutlined @click="comment" /><span @click="comment">评论</span> 
-        <ShareAltOutlined /><span>分享</span>
+        <!-- <ShareAltOutlined /><span>分享</span> -->
+        <DeleteOutlined @click="delPost"/><span @click="delPost">删除</span>
         <span class="fold"><UpOutlined /><span>收起</span></span>
       </li>
     </ul>
@@ -55,6 +56,12 @@ export default defineComponent({
     comment() {
       this.commentShowState = !this.commentShowState;
     },
+    delPost() {
+      const postNode = document.getElementById(this.post.record);
+      if (postNode.parentNode) {
+        postNode.parentNode.removeChild(postNode);
+      }
+    },
   },
   setup() {
     return {
@@ -67,7 +74,9 @@ export default defineComponent({
     this.postContentHtml = editorGetPostContent.getHtml();
     this.postContentText = editorGetPostContent.getText();
     const postContentHeader = postContent[0];
-    const editorGetPostContentHeader = createEditor({ content: postContentHeader });
+    const editorGetPostContentHeader = createEditor({
+      content: postContentHeader,
+    });
     this.postContentHeaderText = editorGetPostContentHeader.getText();
   },
 });
