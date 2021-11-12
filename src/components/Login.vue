@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-31 02:42:26
- * @LastEditTime: 2021-11-01 20:30:05
+ * @LastEditTime: 2021-11-04 13:28:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \diantrain\src\components\Login.vue
@@ -51,7 +51,7 @@
 import { ref, defineComponent, reactive  } from 'vue';
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
 import { message } from 'ant-design-vue';
-import * as HTTP from '../http/api'
+import * as API from '../http/api'
 export default defineComponent({
   components: { UserOutlined ,LockOutlined },
   setup() {
@@ -69,14 +69,14 @@ export default defineComponent({
       password: '',
     });
 
-    const handleFinish = async (values) => {
-      console.log(values, formState);
-      const {code}  = await HTTP.login(formState)
-      if (code === 200) {
+    const handleFinish = async () => {
+      const formData = { name: formState.user, password: formState.password }
+      const {code}  = await API.login(formData)
+      if (code === "200") {
         message.success('登录成功');
         visible.value = false;
       } else {
-        message.error('登陆失败');
+        message.error('用户名与密码不匹配，登陆失败');
       }
     };
 

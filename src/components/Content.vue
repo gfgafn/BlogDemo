@@ -13,7 +13,9 @@
         <div
           :style="{ padding: '24px' }"
         >
-          <router-view />
+          <keep-alive>
+            <router-view />
+          </keep-alive>
         </div>
       </a-layout-content>
       <Footer />
