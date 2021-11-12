@@ -155,9 +155,7 @@ export default {
           title: this.postTitle,
           content: this.postContent,
         };
-        console.log(postData);
         API.writePost(postData).then((res) => {
-          console.log("fyugfuy", res.code);
           if (res.code === "200") {
             message.success("提交成功");
           } else {

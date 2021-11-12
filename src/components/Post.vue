@@ -59,6 +59,7 @@ export default defineComponent({
     },
     editPost() {
       const postTitleAndContent = {
+        record: this.post.record,
         title: this.post.title,
         content: this.post.content
       }

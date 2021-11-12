@@ -33,6 +33,12 @@ $http.interceptors.request.use((config) => {
         Authorization: data.token,
       };
       break;
+    case "/modify":
+      config.headers = {
+        "Content-Type": "application/json",
+        Authorization: data.token,
+      };
+      break;
     default:
       break;
   }

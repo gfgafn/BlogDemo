@@ -44,18 +44,20 @@ import {
   removeEditor,
 } from "@wangeditor/editor-for-vue";
 import cloneDeep from "lodash.clonedeep";
+import * as API from "../http/api";
 
 export default {
   name: "MyEditor",
   components: { Editor, Toolbar },
-  data() {
-    return {
-      postEdited: {
-        postTitle: "",
-        postContent: [],
-      },
-    };
-  },
+  // data() {
+  //   return {
+  //     postEdited: {
+  //       record: null,
+  //       title: "",
+  //       content: [],
+  //     },
+  //   };
+  // },
   setup() {
     const editorId = "postEditorSec";
 
@@ -86,11 +88,13 @@ export default {
       },
     };
     let post = reactive({
+      record: null,
       title: "",
       content: [],
     });
     const route = useRoute();
-    let postTemp = { title: "", content: [] };
+    let postTemp = { ...post };
+
     // 编辑器回调函数
 
     /**
@@ -99,6 +103,7 @@ export default {
      */
     const handleCreated = (editor) => {
       postTemp = JSON.parse(route.query.post);
+      post.record = postTemp.record;
       post.title = postTemp.title;
       editor.children = JSON.parse(postTemp.content);
     };
@@ -121,7 +126,7 @@ export default {
       console.log("ClipboardEvent 粘贴事件对象", event);
 
       // 自定义插入内容
-      editor.insertText("xxx");
+      // editor.insertText("xxx");
 
       // 返回值（注意，vue 事件的返回值，不能用 return）
       // callback(false); // 返回 false ，阻止默认粘贴行为
@@ -155,17 +160,24 @@ export default {
   },
   methods: {
     getPostTitle(event) {
-      this.postEdited.postTitle = event.target.value;
+      this.post.title = event.target.value;
     },
     getPostContent() {
       const editor = getEditor("postEditorSec");
-      this.postEdited.postContent = JSON.stringify(editor.children);
+      this.post.content = JSON.stringify(editor.children);
     },
     submitPostEdited() {
       let LocalStorageData = JSON.parse(localStorage.getItem("data"));
       if (LocalStorageData) {
         this.getPostContent();
-        console.log(this.postEdited);
+        API.modifyPost(this.post).then((res) => {
+          if (res.code === "200") {
+            message.success("修改成功");
+          } else {
+            message.error("修改失败,请重试");
+          }
+        });
+        // console.log(this.post);
       } else {
         message.error("请先登录");
       }
